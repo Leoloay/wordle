@@ -13,7 +13,7 @@
   align-content: center;
 }
 
-.square1 {
+.square {
   border-radius: 10%;
   padding: 0;
   width: 65px;
@@ -21,51 +21,7 @@
   border: 3px solid black;
   font-size: 64px;
   text-align: center;
-}
-
-.square2 {
-  border-radius: 10%;
-  width: 65px;
-  aspect-ratio: 2/1;
-  border: 3px solid black;
-  font-size: 64px;
-  text-align: center;
-}
-
-.square3 {
-  border-radius: 10%;
-  width: 65px;
-  aspect-ratio: 2/1;
-  border: 3px solid black;
-  font-size: 64px;
-  text-align: center;
-}
-
-.square4 {
-  border-radius: 10%;
-  width: 65px;
-  aspect-ratio: 2/1;
-  border: 3px solid black;
-  font-size: 64px;
-  text-align: center;
-}
-
-.square5 {
-  border-radius: 10%;
-  width: 65px;
-  aspect-ratio: 2/1;
-  border: 3px solid black;
-  font-size: 64px;
-  text-align: center;
-}
-
-.square6 {
-  border-radius: 10%;
-  width: 65px;
-  aspect-ratio: 2/1;
-  border: 3px solid black;
-  font-size: 64px;
-  text-align: center;
+  background-color: white;
 }
 
 button {
