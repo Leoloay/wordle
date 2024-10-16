@@ -4,26 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle ++</title>
-    <script defer src="app.js"></script>
+    <script defer src="./data.js"></script>
+    <script defer src="./app.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div>
-      <h1>Project 1</h1>
-    </div>
     <div class="heading" id="title">
-      <h2>Wordle</h2>
+      <h1>Wordle</h1>
     </div>
 
     <div>
-      <h3 class="message">Hello, Welcome to Wordle!</h3>
-      <div><h3>Score:</h3></div>
-      <div>
-        <h3 class="win">Win:</h3>
-        <h3 class="lose">Lose:</h3>
-      </div>
+      <h3 class="message"></h3>
+    </div>
+    <div>
+      <h3 class="score">Score:</h3>
     </div>
 
+    <div>
+      <button class="button reset">Reset Everything</button>
+      <button class="button play">Start Playing</button>
+      <button class="instructions">Show instructions</button>
+    </div>
     <div>
       <section class="board">
         <div class="square row1" id="1"></div>
@@ -63,7 +64,10 @@
         <div class="square row6" id="30"></div>
       </section>
       <input id="wordEntry" />
-      <button class="enter">Enter!</button>
+      <button class="button enter">Enter!</button>
+    </div>
+    <div>
+      <div class="howToPlay"></div>
     </div>
   </body>
 </html>

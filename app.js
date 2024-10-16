@@ -1,15 +1,12 @@
 console.log("Hello, World!")
 
-ourWords = [
-  { word: "beach", hint: "A place you relax in" },
-  { word: "booth", hint: "A place to show your products in" },
-  { word: "fruit", hint: "Something Sweet & Natural" },
-  { word: "apple", hint: "Something Keeps the doctor Away!" },
-]
+//ourWords = require("./data.js")
+
 // Constants
 
 // Variables (state)
 
+let userName = ""
 let board
 let inputWord
 let correctAns
@@ -18,11 +15,12 @@ let winner
 let lose
 let row
 let rowIdx
-let winCount
-let loseCount
+let winCount = 0
+let loseCount = 0
 let giveHint
 
 let winSound = new Audio("winaudio.mp3")
+let loseSound = new Audio(" ")
 
 //Cached Element References
 
@@ -46,46 +44,45 @@ const rowFive = document.querySelectorAll(".row5")
 
 const rowSix = document.querySelectorAll(".row6")
 
+const playButton = document.querySelector(".play")
+
+const scoreCounter = document.querySelector(".score")
+
+const showInstructions = document.querySelector(".instructions")
+
+const resetButton = document.querySelector(".reset")
+
+const howToPlay = document.querySelector(".howToPlay")
+
 //Functions
+enterButton.disabled = true
+wordInput.disabled = true
+
+const chooseUserName = () => {
+  userName = prompt("Enter Your Username")
+  messageEl.textContent = `Hello ${userName}, Welcome to Wordle!`
+}
 
 const init = () => {
-  board = [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]
+  enterButton.disabled = false
+  wordInput.disabled = false
+  squareEl.forEach((sqr) => {
+    sqr.textContent = ""
+    sqr.style.backgroundColor = "white"
+  })
   winner = false
   lose = false
   turn = 0
   row = 0
   chooseCorrectAns()
+  if (userName === "") {
+    chooseUserName()
+  } else {
+    messageEl.textContent = `Hello ${userName}, Welcome to Wordle!`
+  }
+
+  scoreCounter.textContent = `Score: Win: ${winCount} Lose:${loseCount}`
+  clearBoard()
 }
 
 const enterInput = () => {
@@ -138,6 +135,7 @@ const chooseCorrectAns = () => {
   const randomIndex = Math.floor(Math.random() * ourWords.length)
   correctAns = ourWords[randomIndex].word
   giveHint = ourWords[randomIndex].hint
+  showFunFact = ourWords[randomIndex].funFact
 }
 
 const checkCorrectCell = () => {
@@ -190,9 +188,15 @@ const evaluateInput = () => {
         } else if (i !== j) {
           console.log("letter is in the right but in the wrong cell")
           rowIdx[i].style.backgroundColor = "gold"
-          break
+          // break
         }
       } else {
+        if (
+          rowIdx[i].style.backgroundColor === "gold" ||
+          rowIdx[i].style.backgroundColor === "green"
+        ) {
+          continue
+        }
         console.log("letter is not right")
         rowIdx[i].style.backgroundColor = "grey"
       }
@@ -203,10 +207,24 @@ const evaluateInput = () => {
 const checkForWin = () => {
   if (winner === true) {
     alert("You Have Won!")
-    winCounter++
-  } else if (lose === true) alert("You Have Lost")
-  loseCount++
+    messageEl.textContent = `The Correct word was: ${correctAns}, Here is a Fun-Fact: ${showFunFact}`
+    winCount++
+    scoreCounter.textContent = `Score: Win: ${winCount} Lose:${loseCount}`
+    enterButton.disabled = true
+    wordInput.disabled = true
+  } else if (lose === true) {
+    alert("You Have Lost")
+    messageEl.textContent = `The Correct word was: ${correctAns}, Here is a Fun-Fact: ${showFunFact}`
+    loseCount++
+    scoreCounter.textContent = `Score: Win: ${winCount} Lose:${loseCount}`
+    enterButton.disabled = true
+    wordInput.disabled = true
+  }
 }
+
+/*const clearInput = () => {
+  wordInput.reset()
+} */
 
 const render = () => {
   updateBox()
@@ -221,12 +239,54 @@ const handleClick = (event) => {
     evaluateInput()
     checkCorrectCell()
   }
-  checkForWin()
   provideHint()
+  checkForWin()
+  wordInput.value = ""
+
+  // clearInput()
 }
 
-init()
+const resetGame = (event) => {
+  userName = ""
+  enterButton.disabled = false
+  wordInput.disabled = false
+  squareEl.forEach((sqr) => {
+    sqr.textContent = ""
+    sqr.style.backgroundColor = "white"
+  })
+  winner = false
+  lose = false
+  turn = 0
+  row = 0
+  winCount = 0
+  loseCount = 0
+  chooseCorrectAns()
+  if (userName === "") {
+    chooseUserName()
+  } else {
+    messageEl.textContent = `Hello ${userName}, Welcome to Wordle!`
+  }
+
+  scoreCounter.textContent = `Score: Win: ${winCount} Lose:${loseCount}`
+  clearBoard()
+  howToPlay.textContent = ""
+}
+
+const showHowToPlay = () => {
+  howToPlay.innerHTML = `Hello Brave traveller,<br>Here are your instructions to be a Visionary in Wordle:<br><br> 
+  a) You have to guess a 5-letter word within 6 trials.<br> 
+  b) Green square means that the letter is in the word and in the right place.<br> 
+  c) Yellow square means that the letter is in the word but in the wrong place.<br> 
+  d) Grey square means that your letter is not in the word.<br><br> 
+  Good luck, Brave traveller!`
+}
 
 // Event Listeners
 
 enterButton.addEventListener("click", handleClick)
+
+playButton.addEventListener("click", init)
+
+resetButton.addEventListener("click", resetGame)
+
+showInstructions.addEventListener("click", showHowToPlay)
