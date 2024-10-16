@@ -20,7 +20,7 @@ let loseCount = 0
 let giveHint
 
 let winSound = new Audio("winaudio.mp3")
-let loseSound = new Audio(" ")
+let loseSound = new Audio("loseaudio.mp3")
 
 //Cached Element References
 
@@ -55,8 +55,8 @@ const resetButton = document.querySelector(".reset")
 const howToPlay = document.querySelector(".howToPlay")
 
 //Functions
-enterButton.disabled = true
-wordInput.disabled = true
+// enterButton.disabled = true
+// wordInput.disabled = true
 
 const chooseUserName = () => {
   userName = prompt("Enter Your Username")
