@@ -55,8 +55,8 @@ const resetButton = document.querySelector(".reset")
 const howToPlay = document.querySelector(".howToPlay")
 
 //Functions
-// enterButton.disabled = true
-// wordInput.disabled = true
+enterButton.disabled = true
+wordInput.disabled = true
 
 const chooseUserName = () => {
   userName = prompt("Enter Your Username")
@@ -82,7 +82,7 @@ const init = () => {
   }
 
   scoreCounter.textContent = `Score: Win: ${winCount} Lose:${loseCount}`
-  clearBoard()
+  //clearBoard()
 }
 
 const enterInput = () => {
@@ -147,6 +147,7 @@ const checkCorrectCell = () => {
       winner = false
       if (turn > 5) {
         lose = true
+        loseSound.play()
       }
     }
   }
@@ -268,7 +269,7 @@ const resetGame = (event) => {
   }
 
   scoreCounter.textContent = `Score: Win: ${winCount} Lose:${loseCount}`
-  clearBoard()
+  //clearBoard()
   howToPlay.textContent = ""
 }
 
